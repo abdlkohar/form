@@ -1,0 +1,178 @@
+<?php require_once("auth.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet"  href="css/style.css">
+
+    <title>Monitoring | QC Metal</title>
+  </head>
+  <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <h2 class="text-center mt-5 mb-3">Monitoring Produk Metal</h2>
+     
+   
+      <div class="container mt-3" >
+        <div class="row text-center mt-3">
+          <div class="col">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+           <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                <strong>Sukses!</strong> Laporan Berhasil di input.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <form name="metal-form-input" >
+              <label for="nama">Nama</label>
+              <input type="text" name="Nama" placeholder="Masukkan Nama/Shif">
+            <div class="mb-3">
+              <label for="text" class="form-label" >BOQ</label>
+              <input type="text" class="form-control" id="name" aria-describedby="name" name="BOQ" placeholder="Masukkan BOQ"/>
+            </div>
+             <div class="mb-3">
+              <label for="prdk" class="form-label" >Nama Produk</label>
+               <input type="text" class="form-control" id="name" aria-describedby="name" name="Produk" placeholder="Masukkan Nama Produk"/>
+            </div>
+             <div class="mb-3">
+              <label for="com" class="form-label">Componen</label>
+              <input type="text" class="form-control" id="text" aria-describedby="text" name="Componen" placeholder="Componen Produk" />
+            </div>
+               <div class="mb-3">
+              <label for="com" class="form-label">QTY</label>
+              <input type="text" class="form-control" id="text" aria-describedby="text" name="Qty" placeholder="Hasil Pengecekkan" />
+            </div>
+             
+            <div class="mb-3">
+             <label for="ket" class="form-label">Keterangan</label>
+              <textarea class="form-control" id="pesan" rows="3" name="Keterangan" placeholder=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
+
+              <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Loading...
+
+            </button>
+           </form>
+          </div>
+        </div>
+      </div>
+ 
+    <!-- penutup contact -->
+    <div class="container mt-2">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="">  
+                    <h3><?php echo  $_SESSION["user"]["name"] ?></h3>
+                    <p><?php echo $_SESSION["user"]["email"] ?></p>
+                    <p><a href="logout.php">Logout</a></p>
+                </div>
+            </div>
+
+            
+        </div>
+    
+    </div>
+
+
+
+
+
+
+
+
+    <!-- footer -->
+    <footer class="text-white pt-5">
+
+      <p class="text-center">Created 
+        <a href="https://www.instagram.com/akohar27/"  class="text-white fw-bold text-center">Abdul Kohar</a></p>
+     
+    </footer>
+    <!-- penutup footer -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    
+
+
+
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbzyV75wRRtq_JXTBGWE_3dtQZFrkwn3xrTf5Z6a78jPrIEqaKa71o2aSuDO4jdRIH_Y/exec';
+      const form = document.forms['metal-form-input'];
+      const btnKirim = document.querySelector('.btn-kirim');
+      const btnLoading = document.querySelector('.btn-loading');
+      const myAlert = document.querySelector('.my-alert');
+      
+
+
+
+
+        form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // saat di klik
+        // tampilan loading
+
+        btnLoading.classList.toggle('d-none');
+        btnKirim.classList.toggle('d-none');
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+          .then((response) => {
+
+            btnLoading.classList.toggle('d-none');
+            btnKirim.classList.toggle('d-none');
+            //my alert
+             myAlert.classList.toggle('d-none');
+            // riset
+            form.reset();
+            console.log('Success!', response);
+        })
+          .catch(error => console.error('Error!', error.message));
+      });
+  </script>
+  </body>
+</html>
